@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+
+    <string name = "camera_error_title">Camera exception</string>
+    <string name = "cannot_connect_camera">Unable to connect the camera, edit the permissions in the system settings</string>
+    <string name = "camera_disabled">Camera unavailable</string>
+
+    <string name = "app_name">Camtest Streaming</string>
+    <string name = "hello_world"> Hello world! </string>
+    <string name = "click_to_shoot"> Start broadcast </string>
+    <string name = "beauty_switcher"> Beauty Filter </string>
+    <string name="flash">Flash</string>
+
+    <string name = "audio_bitrate">Audio Bitrate:\t\t\t\t\t\t</string>
+    <string name = "video_bitrate">Video Bitrate (Max):\t</string>
+    <string name = "frame_rate">Capture frame rate:\t\t</string>
+    <string name = "auto_start">Auto start after initialization</string>
+    <string name = "test_sw">Testing software (UV component)</string>
+    <string name = "manual_focus">Manually set camera focus</string>
+    <string name = "debug_info">Display debugging information</string>
+
+    <string name = "mute_audio">Mute\t</string>
+    <string name = "audio_mix">Audio mix\t</string>
+    <string name = "front_camera_mirror">Front camera mirror</string>
+
+    <string name = "encode_hw">HW+ Decoder\t\t</string>
+    <string name = "encode_sw">SW Decoder</string>
+
+    <string name = "h_orientation">Horizontal\t\t</string>
+    <string name = "v_orientation">Portrait (Vertical)</string>
+
+    <string name = "connect_BT">Connect</string>
+
+    <string name = "rtmp_server">Enter the rtmp server address</string>
+
+    <string name = "rtmp_host">rtmp://stream.ssh101.com/live/teocci</string>
+
+    <string name = "choose_filter">Choose Beauty Filter</string>
+    <string name = "wanna_end_stream">Do you want to end the stream?</string>
+
+    <string name = "cancel">Cancel</string>
+    <string name = "accept">OK</string>
+
+</resources>
