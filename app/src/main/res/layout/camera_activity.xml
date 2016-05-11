@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/actionbar"
         android:gravity="center"
-        android:textColor="@color/font_color_35"
+        android:textColor="@color/font_color_39"
         android:textSize="@dimen/font_size_38px" />
 
     <TextView

@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,8 @@ import com.ksy.recordlib.service.stats.OnLogEventListener;
 import com.ksy.recordlib.service.streamer.OnPreviewFrameListener;
 import com.ksy.recordlib.service.streamer.OnStatusListener;
 import com.ksy.recordlib.service.streamer.RecorderConstants;
-import com.ksy.recordlib.service.util.audio.OnProgressListener;
 import com.ksy.recordlib.service.util.audio.OnNoiseSuppressionListener;
+import com.ksy.recordlib.service.util.audio.OnProgressListener;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -47,11 +48,8 @@ public class CameraActivity extends Activity {
 
     private static final String TAG = "CameraActivity";
 
-
     private GLSurfaceView mCameraPreview;
-
     private KSYStreamer mStreamer;
-
     private Handler mHandler;
 
     private final ButtonObserver mObserverButton = new ButtonObserver();
@@ -61,7 +59,9 @@ public class CameraActivity extends Activity {
     private View mSwitchCameraView;
     private View mFlashView;
     private CheckBox enable_beauty;
-    private TextView mShootingText;
+    //private TextView mShootingText;
+    private ImageView img;
+
     private boolean recording = false;
     private boolean isFlashOpened = false;
     private boolean startAuto = false;
@@ -70,8 +70,8 @@ public class CameraActivity extends Activity {
     private String mUrl, mDebugInfo = "";
     private String mBgmPath = "/sdcard/test.mp3";
     private String mLogoPath = "/sdcard/test.png";
-    private static final String START_STRING = "开始直播";
-    private static final String STOP_STRING = "停止直播";
+    private static String START_STRING;
+    private static String STOP_STRING;
     private TextView mUrlTextView, mDebugInfoTextView;
     private volatile boolean mAcitivityResumed = false;
     private KSYStreamerConfig.ENCODE_METHOD encode_method = KSYStreamerConfig.ENCODE_METHOD.SOFTWARE;
@@ -133,6 +133,9 @@ public class CameraActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        START_STRING = getResources().getString(R.string.start_streaming);
+        STOP_STRING = getResources().getString(R.string.stop_streaming);
+
         mCameraPreview = (GLSurfaceView) findViewById(R.id.camera_preview);
         mUrlTextView = (TextView) findViewById(R.id.url);
         enable_beauty = (CheckBox) findViewById(R.id.click_to_switch_beauty);
@@ -150,36 +153,36 @@ public class CameraActivity extends Activity {
                             Toast.makeText(CameraActivity.this, content,
                                     Toast.LENGTH_LONG).show();
                             chronometer.stop();
-                            mShootingText.setText(START_STRING);
-                            mShootingText.postInvalidate();
+                            img.setImageResource(R.drawable.start_icon);
+                            img.postInvalidate();
                             break;
                         case RecorderConstants.KSYVIDEO_OPEN_STREAM_SUCC:
                             chronometer.setBase(SystemClock.elapsedRealtime());
-                            // 开始计时
+                            // Starting the timer
                             chronometer.start();
-                            mShootingText.setText(STOP_STRING);
-                            mShootingText.postInvalidate();
+                            img.setImageResource(R.drawable.stop_icon);
+                            img.postInvalidate();
                             beginInfoUploadTimer();
                             break;
                         case RecorderConstants.KSYVIDEO_ENCODED_FRAMES_THRESHOLD:
                             chronometer.stop();
                             recording = false;
-                            mShootingText.setText(START_STRING);
-                            mShootingText.postInvalidate();
+                            img.setImageResource(R.drawable.start_icon);
+                            img.postInvalidate();
                             Toast.makeText(CameraActivity.this, content,
                                     Toast.LENGTH_LONG).show();
                             break;
                         case RecorderConstants.KSYVIDEO_INIT_DONE:
-                            if (mShootingText != null)
-                                mShootingText.setEnabled(true);
-                            Toast.makeText(getApplicationContext(), "初始化完成", Toast.LENGTH_SHORT).show();
+                            if (img != null)
+                                img.setEnabled(true);
+                            Toast.makeText(getApplicationContext(), R.string.init_OK, Toast.LENGTH_SHORT).show();
                             Log.e(TAG, "---------KSYVIDEO_INIT_DONE");
 //							if(!checkoutPreviewStarted()){
 //								return;
 //							}
                             if (startAuto && mStreamer.startStream()) {
-                                mShootingText.setText(STOP_STRING);
-                                mShootingText.postInvalidate();
+                                img.setImageResource(R.drawable.stop_icon);
+                                img.postInvalidate();
                                 recording = true;
                                 if (audio_mix) {
                                     mStreamer.startMixMusic(mBgmPath, mListener, true);
@@ -229,7 +232,7 @@ public class CameraActivity extends Activity {
             builder.setEncodeMethod(encode_method);
 
             String timeSec = String.valueOf(System.currentTimeMillis() / 1000);
-            // ---------不合法！请联系我们申请
+            // ---------illegal! Please contact us to apply
             String skSign = md5("IVALID_SK" + timeSec);
             builder.setAppId("INVALID_APP_ID");
             builder.setAccessKey("IVALID_AK");
@@ -304,10 +307,11 @@ public class CameraActivity extends Activity {
                 }
             }
         });
-        mShootingText = (TextView) findViewById(R.id.click_to_shoot);
-        mShootingText.setClickable(true);
-        mShootingText.setOnClickListener(new View.OnClickListener() {
 
+        img = (ImageView) findViewById(R.id.click_to_shoot);
+
+        img.setClickable(true);
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 if (recording) {
@@ -316,16 +320,16 @@ public class CameraActivity extends Activity {
                             mStreamer.stopMixMusic();
                         }
                         chronometer.stop();
-                        mShootingText.setText(START_STRING);
-                        mShootingText.postInvalidate();
+                        img.setImageResource(R.drawable.start_icon);
+                        img.postInvalidate();
                         recording = false;
                     } else {
-                        Log.e(TAG, "操作太频繁");
+                        Log.e(TAG, "Happens so frequently.");
                     }
                 } else {
                     if (mStreamer.startStream()) {
-                        mShootingText.setText(STOP_STRING);
-                        mShootingText.postInvalidate();
+                        img.setImageResource(R.drawable.stop_icon);
+                        img.postInvalidate();
                         recording = true;
 
                         mStreamer.setEnableReverb(true);
@@ -336,14 +340,14 @@ public class CameraActivity extends Activity {
                             mStreamer.setHeadsetPlugged(true);
                         }
                     } else {
-                        Log.e(TAG, "操作太频繁");
+                        Log.e(TAG, "Happens so frequently.");
                     }
                 }
 
             }
         });
         if (startAuto) {
-            mShootingText.setEnabled(false);
+            img.setEnabled(false);
         }
 
         mDeleteView = findViewById(R.id.backoff);
@@ -471,27 +475,27 @@ public class CameraActivity extends Activity {
             // msg may be null
             switch (what) {
                 case RecorderConstants.KSYVIDEO_OPEN_STREAM_SUCC:
-                    // 推流成功
+                    // Streaming Success
                     Log.d("TAG", "KSYVIDEO_OPEN_STREAM_SUCC");
                     mHandler.obtainMessage(what, "start stream succ")
                             .sendToTarget();
                     break;
                 case RecorderConstants.KSYVIDEO_ENCODED_FRAMES_THRESHOLD:
-                    //认证失败且超过编码上限
+                    // Authentication fails and the encoding limit was exceeded.
                     Log.d(TAG, "KSYVIDEO_ENCODED_FRAME_THRESHOLD");
                     mHandler.obtainMessage(what, "KSYVIDEO_ENCODED_FRAME_THRESHOLD")
                             .sendToTarget();
                     break;
                 case RecorderConstants.KSYVIDEO_AUTH_FAILED:
-                    //认证失败
+                    // Authentication failed
                     Log.d(TAG, "KSYVIDEO_AUTH_ERROR");
                     break;
                 case RecorderConstants.KSYVIDEO_ENCODED_FRAMES_FAILED:
-                    //编码失败
+                    // Encoding failed
                     Log.e(TAG, "---------KSYVIDEO_ENCODED_FRAMES_FAILED");
                     break;
                 case RecorderConstants.KSYVIDEO_FRAME_DATA_SEND_SLOW:
-                    //网络状况不佳
+                    //Poor Network connectivity.
                     if (mHandler != null) {
                         mHandler.obtainMessage(what, "network not good").sendToTarget();
                     }
@@ -524,7 +528,7 @@ public class CameraActivity extends Activity {
                                     try {
                                         while (needReconnect) {
                                             Thread.sleep(3000);
-                                            //只在Activity对用户可见时重连
+                                            //Activity will be visible when the user reconnects.
                                             if (mAcitivityResumed) {
                                                 if (mStreamer.startStream()) {
                                                     recording = true;

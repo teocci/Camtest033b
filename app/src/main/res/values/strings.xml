@@ -8,9 +8,9 @@
 
     <string name = "app_name">Camtest Streaming</string>
     <string name = "hello_world"> Hello world! </string>
-    <string name = "click_to_shoot"> Start broadcast </string>
+    <string name = "click_to_shoot"> Start streaming </string>
     <string name = "beauty_switcher"> Beauty Filter </string>
-    <string name="flash">Flash</string>
+    <string name = "flash">Flash</string>
 
     <string name = "audio_bitrate">Audio Bitrate:\t\t\t\t\t\t</string>
     <string name = "video_bitrate">Video Bitrate (Max):\t</string>
@@ -31,13 +31,16 @@
     <string name = "v_orientation">Portrait (Vertical)</string>
 
     <string name = "connect_BT">Connect</string>
+    <string name = "start_streaming">Start streaming</string>
+    <string name = "stop_streaming">Stop the stream</string>
+    <string name = "init_OK">Initialization is complete</string>
 
     <string name = "rtmp_server">Enter the rtmp server address</string>
 
     <string name = "rtmp_host">rtmp://stream.ssh101.com/live/teocci</string>
 
     <string name = "choose_filter">Choose Beauty Filter</string>
-    <string name = "wanna_end_stream">Do you want to end the stream?</string>
+    <string name = "wanna_end_stream">Do you want to stop streaming?</string>
 
     <string name = "cancel">Cancel</string>
     <string name = "accept">OK</string>

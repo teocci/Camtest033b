@@ -3,10 +3,10 @@
 
     <color name="bg_color_2">#ffe8e8e8</color>
     <color name="recorder_bg_new">#00000000</color>
-    <color name="transparent">#00ffffff</color><!--透明白色 -->
+    <color name="transparent">#00ffffff</color><!-- Transparent white -->
 
 
-    <color name="record_black">#131313</color><!--黑色 -->
+    <color name="record_black">#131313</color><!-- Dark Gray -->
     
     <color name="TextColorComLike">#668a3d</color>
     <color name="TextColorUserAccount">#006a92</color>
@@ -19,21 +19,21 @@
     <color name="sendbtn_allowclike_color">#ffffff</color>
     <color name="sendbtn_color">#999999</color>
     
-    <color name="orange">#ffa500</color><!--橙色 -->
+    <color name="orange">#ffa500</color><!-- Orange  -->
     
     
-    <color name="transparent1">#7fffffff</color><!--透明白色 -->
+    <color name="transparent1">#7fffffff</color><!-- Transparent white -->
     <color name="g_more_dlg_bg">#e5353942</color>
     <color name="addMore_bg_color">#F0F0F0</color>
     <color name="load_more_button_blue">#336666</color>
     <color name="divider_color">#FFAFB6B5</color>
     
-    <!-- 背景色 -->
+    <!-- Background colors -->
     <color name="at_message_unread">#f7f3ec</color>
     <color name="at_message_readed">#f8f8f7</color>
     <color name="recommand_guide_head">#99000000</color>
     
-    <!-- 文字颜色 -->
+    <!-- Text colors -->
     <color name="font_color_white">#ffffff</color>
     <color name="font_color_3">#333333</color>
     <color name="font_color_blue">#336666</color>

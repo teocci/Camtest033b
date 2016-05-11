@@ -29,17 +29,6 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/recorder_delete_icon" />
 
-            <TextView
-                android:id="@+id/click_to_shoot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="#11123456"
-                android:text="@string/click_to_shoot"
-                android:textColor="@color/font_color_35"
-                android:textSize="@dimen/font_size_38px"></TextView>
-
             <CheckBox
                 android:id="@+id/click_to_switch_beauty"
                 android:layout_width="wrap_content"
@@ -50,8 +39,17 @@
                 android:background="#11123456"
                 android:checked="true"
                 android:text="@string/beauty_switcher"
-                android:textColor="@color/font_color_35"
+                android:textColor="@color/font_color_39"
                 android:textSize="@dimen/font_size_38px"></CheckBox>
+
+            <ImageView
+                android:id="@+id/click_to_shoot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/start_icon" />
         </LinearLayout>
     </RelativeLayout>
 
